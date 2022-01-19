@@ -1,4 +1,3 @@
-import "app/core/styles/index.css"
 import {
   AppProps,
   ErrorBoundary,

@@ -1,7 +1,7 @@
 import { Head, BlitzLayout, Link, Routes, useMutation, useQuery, useSession } from "blitz"
 import logout from "app/auth/mutations/logout"
 import { useCurrentUser } from "../hooks/useCurrentUser"
-import { Content } from "@adobe/react-spectrum"
+import { Content, Flex } from "@adobe/react-spectrum"
 
 const UserInfo = () => {
   const currentUser = useCurrentUser()
@@ -9,7 +9,7 @@ const UserInfo = () => {
 
   if (currentUser) {
     return (
-      <div className="flex justify-between items-center gap-4">
+      <Flex justifyContent={"space-between"} alignItems={"center"} gap={"size-250"}>
         <div>{currentUser.name || currentUser.email}</div>
         <button
           className="button small"
@@ -19,11 +19,11 @@ const UserInfo = () => {
         >
           Logout
         </button>
-      </div>
+      </Flex>
     )
   } else {
     return (
-      <div className="flex justify-between items-center">
+      <Flex justifyContent={"space-between"} alignItems={"center"} gap={"size-250"}>
         <Link href={Routes.SignupPage()}>
           <a className="button small">
             <strong>Sign Up</strong>
@@ -34,7 +34,7 @@ const UserInfo = () => {
             <strong>Login</strong>
           </a>
         </Link>
-      </div>
+      </Flex>
     )
   }
 }
@@ -49,13 +49,13 @@ const Layout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
         <title>{title || "crossfit-social"}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <nav className="p-6 flex justify-between">
-        <div className="flex justify-between items-center gap-4">
+      <Flex justifyContent={"space-between"} alignItems={"center"} gap={"size-250"}>
+        <Flex justifyContent={"space-between"} alignItems={"center"} gap={"size-250"}>
           <Link href={Routes.Home()}>CF Social</Link>
           {count > 0 && <Link href={Routes.GymsPage()}>Your Gyms</Link>}
-        </div>
+        </Flex>
         <UserInfo />
-      </nav>
+      </Flex>
       <main className="px-6">{children}</main>
     </Content>
   )
