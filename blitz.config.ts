@@ -1,4 +1,5 @@
 import { BlitzConfig, sessionMiddleware, simpleRolesIsAuthorized } from "blitz"
+import WindiCSSWebpackPlugin from "windicss-webpack-plugin"
 const withPlugins = require("next-compose-plugins")
 const withTM = require("next-transpile-modules")([
   "@adobe/react-spectrum",
@@ -56,6 +57,7 @@ const config: BlitzConfig = withPlugins([withTM], {
     // Note: we provide webpack above so you should not `require` it
     // Perform customizations to webpack config
     // Important: return the modified config
+    config.plugins.push(new WindiCSSWebpackPlugin())
     return config
   },
 })

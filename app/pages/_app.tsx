@@ -1,3 +1,4 @@
+import "windi.css"
 import {
   AppProps,
   ErrorBoundary,
