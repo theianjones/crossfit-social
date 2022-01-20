@@ -1,7 +1,6 @@
 import { Head, BlitzLayout, Link, Routes, useMutation, useQuery, useSession } from "blitz"
 import logout from "app/auth/mutations/logout"
 import { useCurrentUser } from "../hooks/useCurrentUser"
-import { Content, Flex } from "@adobe/react-spectrum"
 
 const UserInfo = () => {
   const currentUser = useCurrentUser()
@@ -9,7 +8,7 @@ const UserInfo = () => {
 
   if (currentUser) {
     return (
-      <Flex justifyContent={"space-between"} alignItems={"center"} gap={"size-250"}>
+      <div className="flex justify-between items-center gap-4">
         <div>{currentUser.name || currentUser.email}</div>
         <button
           className="button small"
@@ -19,11 +18,11 @@ const UserInfo = () => {
         >
           Logout
         </button>
-      </Flex>
+      </div>
     )
   } else {
     return (
-      <Flex justifyContent={"space-between"} alignItems={"center"} gap={"size-250"}>
+      <div className="flex justify-between items-center gap-4">
         <Link href={Routes.SignupPage()}>
           <a className="button small">
             <strong>Sign Up</strong>
@@ -34,7 +33,7 @@ const UserInfo = () => {
             <strong>Login</strong>
           </a>
         </Link>
-      </Flex>
+      </div>
     )
   }
 }
@@ -44,20 +43,20 @@ const Layout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
   const count = (session?.gyms ?? []).length
 
   return (
-    <Content height={"100vh"}>
+    <div>
       <Head>
         <title>{title || "crossfit-social"}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Flex justifyContent={"space-between"} alignItems={"center"} gap={"size-250"}>
-        <Flex justifyContent={"space-between"} alignItems={"center"} gap={"size-250"}>
+      <div className="flex justify-between items-center gap-4">
+        <div className="flex justify-between items-center gap-4">
           <Link href={Routes.Home()}>CF Social</Link>
           {count > 0 && <Link href={Routes.GymsPage()}>Your Gyms</Link>}
-        </Flex>
+        </div>
         <UserInfo />
-      </Flex>
+      </div>
       <main className="px-6">{children}</main>
-    </Content>
+    </div>
   )
 }
 

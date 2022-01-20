@@ -74,6 +74,7 @@ model Gym {
 
   gymOwners GymOwner[]
   gymRoles  GymRole[]
+  channels  Channel[]
 }
 
 model GymOwner {
@@ -96,4 +97,29 @@ model GymRole {
   user      User     @relation(fields: [userId], references: [id])
   userId    Int
   name      String
+
+  channelPosts ChannelPost[]
+}
+
+model Channel {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  gym       Gym      @relation(fields: [gymId], references: [id])
+  gymId     String
+
+  channelPost ChannelPost[]
+}
+
+model ChannelPost {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  body      String
+  channel   Channel  @relation(fields: [channelId], references: [id])
+  channelId Int
+  gymRole   GymRole  @relation(fields: [gymRoleId], references: [id])
+  gymRoleId Int
 }

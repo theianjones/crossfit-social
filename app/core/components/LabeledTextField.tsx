@@ -11,10 +11,12 @@ export interface LabeledTextFieldProps extends PropsWithoutRef<JSX.IntrinsicElem
   outerProps?: PropsWithoutRef<JSX.IntrinsicElements["div"]>
   labelProps?: ComponentPropsWithoutRef<"label">
   fieldProps?: UseFieldConfig<string>
+  as?: React.ElementType<any>
 }
 
 export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldProps>(
-  ({ name, label, outerProps, fieldProps, labelProps, ...props }, ref) => {
+  ({ name, label, outerProps, fieldProps, labelProps, as = "input", ...props }, ref) => {
+    const Component = as
     const {
       input,
       meta: { touched, error, submitError, submitting },
@@ -33,7 +35,7 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
       <div {...outerProps}>
         <label {...labelProps}>
           {label}
-          <input {...input} disabled={submitting} {...props} ref={ref} />
+          <Component {...input} disabled={submitting} {...props} ref={ref} />
         </label>
 
         {touched && normalizedError && (

@@ -10,7 +10,6 @@ import {
 } from "blitz"
 import { Suspense } from "react"
 import LoginForm from "app/auth/components/LoginForm"
-import { SSRProvider, Provider, defaultTheme } from "@adobe/react-spectrum"
 
 export default function App({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
@@ -21,9 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
         FallbackComponent={RootErrorFallback}
         onReset={useQueryErrorResetBoundary().reset}
       >
-        <SSRProvider>
-          <Provider theme={defaultTheme}>{getLayout(<Component {...pageProps} />)}</Provider>
-        </SSRProvider>
+        {getLayout(<Component {...pageProps} />)}
       </ErrorBoundary>
     </Suspense>
   )

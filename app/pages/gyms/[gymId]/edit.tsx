@@ -5,7 +5,6 @@ import getGym from "app/gyms/queries/getGym"
 import updateGym from "app/gyms/mutations/updateGym"
 import { updateGymSchema } from "app/gyms/validations"
 import { GymForm, FORM_ERROR } from "app/gyms/components/GymForm"
-import { Heading } from "@adobe/react-spectrum"
 
 export const EditGym = () => {
   const router = useRouter()
@@ -27,7 +26,7 @@ export const EditGym = () => {
       </Head>
 
       <div>
-        <Heading level={1}>Edit Gym {gym.name}</Heading>
+        <h1>Edit Gym {gym.name}</h1>
 
         <GymForm
           submitText="Update Gym"

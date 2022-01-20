@@ -3,7 +3,6 @@ import { Form as FinalForm, FormProps as FinalFormProps } from "react-final-form
 import { z } from "zod"
 import { validateZodSchema } from "blitz"
 export { FORM_ERROR } from "final-form"
-import { ActionButton } from "@adobe/react-spectrum"
 
 export interface FormProps<S extends z.ZodType<any, any>>
   extends Omit<PropsWithoutRef<JSX.IntrinsicElements["form"]>, "onSubmit"> {
@@ -41,9 +40,9 @@ export function Form<S extends z.ZodType<any, any>>({
           )}
 
           {submitText && (
-            <ActionButton type="submit" isDisabled={submitting}>
+            <button type="submit" disabled={submitting}>
               {submitText}
-            </ActionButton>
+            </button>
           )}
 
           <style global jsx>{`

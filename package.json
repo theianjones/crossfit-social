@@ -24,13 +24,11 @@
     ]
   },
   "dependencies": {
-    "@adobe/react-spectrum": "3.15.1",
     "@prisma/client": "3.8.1",
     "autoprefixer": "10.x",
     "blitz": "0.45.0",
     "classnames": "2.3.1",
     "final-form": "4.20.6",
-    "next-transpile-modules": "9.0.0",
     "postcss": "8.x",
     "react": "18.0.0-beta-149b420f6-20211119",
     "react-dom": "18.0.0-alpha-5ca4b0433-20211020",
@@ -45,7 +43,6 @@
     "eslint": "7.32.0",
     "husky": "7.0.4",
     "lint-staged": "11.3.0-beta.2",
-    "next-compose-plugins": "2.2.1",
     "prettier": "2.5.1",
     "prettier-plugin-prisma": "3.8.0",
     "pretty-quick": "3.1.3",
