@@ -4,6 +4,7 @@
 datasource db {
   provider             = "mysql"
   url                  = env("DATABASE_URL")
+  shadowDatabaseUrl    = env("SHADOW_DATABASE_URL")
   referentialIntegrity = "prisma"
 }
 
@@ -23,10 +24,9 @@ model User {
   hashedPassword String?
   role           String   @default("USER")
 
-  tokens    Token[]
-  sessions  Session[]
-  gymOwners GymOwner[]
-  gymRoles  GymRole[]
+  tokens   Token[]
+  sessions Session[]
+  gymRoles GymRole[]
 }
 
 model Session {
@@ -74,20 +74,8 @@ model Gym {
   updatedAt DateTime @updatedAt
   name      String
 
-  gymOwners GymOwner[]
-  gymRoles  GymRole[]
-  channels  Channel[]
-}
-
-model GymOwner {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  user   User?  @relation(fields: [userId], references: [id])
-  userId Int?
-  gym    Gym?   @relation(fields: [gymId], references: [id])
-  gymId  String
+  gymRoles GymRole[]
+  channels Channel[]
 }
 
 model GymRole {

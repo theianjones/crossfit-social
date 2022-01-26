@@ -18,7 +18,7 @@ export default resolver.pipe(
       where: { id },
       ...(withOwner && {
         include: {
-          gymOwners: { select: { user: { select: { name: true, email: true } } } },
+          gymRoles: { select: { user: { select: { name: true, email: true } } } },
         },
       }),
     })

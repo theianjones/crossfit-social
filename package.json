@@ -14,6 +14,7 @@
     "db:studio": "blitz p studio --schema=./db/schema.prisma",
     "now-build": "yarn generate --schema=./db/schema.prisma && next build",
     "db:start": "pscale connect crossfit-social-us-east main --port 3309",
+    "db:start:shadow": "pscale connect crossfit-social-us-east shadow --port 3310",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
     "test": "jest",
     "test:watch": "jest --watch",
