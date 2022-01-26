@@ -8,6 +8,12 @@ This is a [Blitz.js](https://github.com/blitz-js/blitz) app.
 
 Run your app in the development mode.
 
+We use [PlanetScale](https://planetscale.com/) for our production/dev database. You will need to [download](https://docs.planetscale.com/tutorials/planetscale-quick-start-guide) `pscale` and be added to the team. Check out the [Environment Variables](#environment-variables) section to set the correct env vars.
+
+After logging in through the cli, run `yarn db:start` to connect to the database.
+
+Then you can start the development server.
+
 ```
 blitz dev
 ```
@@ -19,13 +25,22 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 Ensure the `.env.local` file has required environment variables:
 
 ```
-DATABASE_URL=postgresql://<YOUR_DB_USERNAME>@localhost:5432/crossfit-social
+DATABASE_URL="mysql://root@127.0.0.1:3309/crossfit-social-us-east"
 ```
 
 Ensure the `.env.test.local` file has required environment variables:
 
+Create MySQL db locally for running tests:
+
+- `brew install mysql`
+- `mysql_secure_installation`
+- enter new password (i use `password`)
+- `mysql -uroot -p`
+- `create database crossfit_social_test;`
+
 ```
-DATABASE_URL=postgresql://<YOUR_DB_USERNAME>@localhost:5432/crossfit-social_test
+# .env.test.local
+DATABASE_URL="mysql://root:password@127.0.0.1:3306/crossfit_social_test"
 ```
 
 ## Tests
@@ -59,73 +74,25 @@ Blitz comes with a powerful CLI that is designed to make development easy and fa
 
 You can read more about it on the [CLI Overview](https://blitzjs.com/docs/cli-overview) documentation.
 
+## Migrating PlanetScale with prisma
+
+PlanetScale doesnt allow Prisma to create databases, so we need a dedicated branch. I set up the `shadow` branch for this purpose.
+
+You'll need to add `SHADOW_DATABASE_URL` to your `.env.local`:
+
+```
+SHADOW_DATABASE_URL="mysql://root@127.0.0.1:3310/crossfit-social-us-east/shadow"
+```
+
+Then you can connect to it:
+
+```
+yarn db:start:shadow
+```
+
+Now you can run `yarn db:migrate` after making changes to `db/schema.prisma`.
+
 ## What's included?
-
-Here is the starting structure of your app.
-
-```
-crossfit-social
-├── app/
-│   ├── api/
-│   ├── auth/
-│   │   ├── components/
-│   │   │   ├── LoginForm.tsx
-│   │   │   └── SignupForm.tsx
-│   │   ├── mutations/
-│   │   │   ├── changePassword.ts
-│   │   │   ├── forgotPassword.test.ts
-│   │   │   ├── forgotPassword.ts
-│   │   │   ├── login.ts
-│   │   │   ├── logout.ts
-│   │   │   ├── resetPassword.test.ts
-│   │   │   ├── resetPassword.ts
-│   │   │   └── signup.ts
-│   │   ├── pages/
-│   │   │   ├── forgot-password.tsx
-│   │   │   ├── login.tsx
-│   │   │   ├── reset-password.tsx
-│   │   │   └── signup.tsx
-│   │   └── validations.ts
-│   ├── core/
-│   │   ├── components/
-│   │   │   ├── Form.tsx
-│   │   │   └── LabeledTextField.tsx
-│   │   ├── hooks/
-│   │   │   └── useCurrentUser.ts
-│   │   └── layouts/
-│   │       └── Layout.tsx
-│   ├── pages/
-│   │   ├── _app.tsx
-│   │   ├── _document.tsx
-│   │   ├── 404.tsx
-│   │   ├── index.test.tsx
-│   │   └── index.tsx
-│   └── users/
-│       └── queries/
-│           └── getCurrentUser.ts
-├── db/
-│   ├── migrations/
-│   ├── index.ts
-│   ├── schema.prisma
-│   └── seeds.ts
-├── integrations/
-├── mailers/
-│   └── forgotPasswordMailer.ts
-├── public/
-│   ├── favicon.ico
-│   └── logo.png
-├── test/
-│   ├── setup.ts
-│   └── utils.tsx
-├── .eslintrc.js
-├── babel.config.js
-├── blitz.config.ts
-├── jest.config.ts
-├── package.json
-├── README.md
-├── tsconfig.json
-└── types.ts
-```
 
 These files are:
 
@@ -171,3 +138,7 @@ The Blitz community is warm, safe, diverse, inclusive, and fun! Feel free to rea
 - [Forum discussions](https://github.com/blitz-js/blitz/discussions)
 - [How to Contribute](https://blitzjs.com/docs/contributing)
 - [Sponsor or donate](https://github.com/blitz-js/blitz#sponsors-and-donations)
+
+```
+
+```
