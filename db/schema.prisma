@@ -2,12 +2,14 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
 }
 
 // --------------------------------------
@@ -118,8 +120,22 @@ model ChannelPost {
   updatedAt DateTime @updatedAt
   title     String
   body      String
-  channel   Channel  @relation(fields: [channelId], references: [id])
+  channel   Channel  @relation(fields: [channelId], references: [id]) // posts should live off of gyms (keep it simple)
   channelId Int
-  gymRole   GymRole  @relation(fields: [gymRoleId], references: [id])
+  gymRole   GymRole  @relation(fields: [gymRoleId], references: [id]) // this should belong to the user, not the role
   gymRoleId Int
+}
+
+model File {
+  id          Int      @id @default(autoincrement())
+  key         String   @unique
+  hash        String   @unique
+  name        String
+  description String   @default("")
+  contentType String
+  metadata    Json     @default("{}")
+  byteSize    Int
+  serviceName String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

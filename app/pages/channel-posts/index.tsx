@@ -23,7 +23,7 @@ export const ChannelPostsList = () => {
         {channelPosts.map((channelPost) => (
           <li key={channelPost.id}>
             <Link href={Routes.ShowChannelPostPage({ channelPostId: channelPost.id })}>
-              <a>{channelPost.name}</a>
+              <a>{channelPost.title}</a>
             </Link>
           </li>
         ))}
